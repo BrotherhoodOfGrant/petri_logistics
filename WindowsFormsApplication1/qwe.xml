@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="F:Vive_039\xmlSchemaNCESModuleNetworkExtended.xsd" X="0" Y="0" Num="0" LocNum="0" Name="New" Comment="_" Width="45.0" Height="58.0">
+<VersionInfo Copyright="" FileVersion="1" EditorVersion="Visual NCES Editor 2.0.0" Author="" Date="2015-09-16" Description="" />
+<InterfaceList />
+<SNS LeftPageBorder="-300.0" RightPageBorder="300.0">
+</SNS>
+</FBType>
