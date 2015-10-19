@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="F:\Vive_039\xmlSchema\NCESModuleNetworkExtended.xsd" X="0" Y="0" Num="0" LocNum="0" Name="New" Comment="_" Width="45.0" Height="58.0">
+  <VersionInfo Copyright="" FileVersion="1" EditorVersion="Visual NCES Editor 2.0.0" Author="" Date="2015-09-17" Description="" />
+  <InterfaceList />
+  <SNS LeftPageBorder="-300.0" RightPageBorder="300.0">
+    <place X="-209" Y="-110" Diameter="30.0" Name="p1" Num="1" LocNum="1" Mark="2" Clock="0" Capacity="1" Comment="_">
+      <CommentBox X="0" Y="0" Width="20" Height="20" />
+    </place>
+    <place X="-97" Y="-105" Diameter="30.0" Name="p2" Num="2" LocNum="2" Mark="1" Clock="0" Capacity="1" Comment="_">
+      <CommentBox X="0" Y="0" Width="20" Height="20" />
+    </place>
+    <place X="16" Y="-100" Diameter="30.0" Name="p3" Num="3" LocNum="3" Mark="1" Clock="0" Capacity="1" Comment="_">
+      <CommentBox X="0" Y="0" Width="20" Height="20" />
+    </place>
+    <place X="155" Y="-94" Diameter="30.0" Name="p4" Num="4" LocNum="4" Mark="2" Clock="0" Capacity="1" Comment="_">
+      <CommentBox X="0" Y="0" Width="20" Height="20" />
+    </place>
+    <place X="-130" Y="89" Diameter="30.0" Name="p5" Num="5" LocNum="5" Mark="0" Clock="0" Capacity="1" Comment="_">
+      <CommentBox X="0" Y="0" Width="20" Height="20" />
+    </place>
+    <place X="3" Y="92" Diameter="30.0" Name="p6" Num="6" LocNum="6" Mark="0" Clock="0" Capacity="1" Comment="_">
+      <CommentBox X="0" Y="0" Width="20" Height="20" />
+    </place>
+    <place X="110" Y="93" Diameter="30.0" Name="p7" Num="7" LocNum="7" Mark="0" Clock="0" Capacity="1" Comment="_">
+      <CommentBox X="0" Y="0" Width="20" Height="20" />
+    </place>
+    <trans X="-118" Y="0" Width="30" Height="20" Num="1" LocNum="1" Name="t1" Type="OR" TransInscription="_" SwitchMode="s" Comment="_">
+      <CommentBox X="0" Y="0" Width="20" Height="20" />
+    </trans>
+    <trans X="-22" Y="9" Width="30" Height="20" Num="2" LocNum="2" Name="t2" Type="OR" TransInscription="_" SwitchMode="s" Comment="_">
+      <CommentBox X="0" Y="0" Width="20" Height="20" />
+    </trans>
+    <trans X="71" Y="8" Width="30" Height="20" Num="3" LocNum="3" Name="t3" Type="OR" TransInscription="_" SwitchMode="s" Comment="_">
+      <CommentBox X="0" Y="0" Width="20" Height="20" />
+    </trans>
+    <arc StartPoint="p1" EndPoint="t1" ArcWeight="1" TimeValue="" Comment="_">
+      <Point Num="1" X="-185" Y="-84" />
+      <Point Num="2" X="-118" Y="0" />
+    </arc>
+    <arc StartPoint="p2" EndPoint="t1" ArcWeight="1" TimeValue="" Comment="_">
+      <Point Num="1" X="-85" Y="-76" />
+      <Point Num="2" X="-96" Y="0" />
+    </arc>
+    <arc StartPoint="p3" EndPoint="t3" ArcWeight="1" TimeValue="" Comment="_">
+      <Point Num="1" X="38" Y="-72" />
+      <Point Num="2" X="71" Y="8" />
+    </arc>
+    <arc StartPoint="p4" EndPoint="t3" ArcWeight="1" TimeValue="" Comment="_">
+      <Point Num="1" X="161" Y="-68" />
+      <Point Num="2" X="101" Y="8" />
+    </arc>
+    <arc StartPoint="t2" EndPoint="p2" ArcWeight="1" TimeValue="" Comment="_">
+      <Point Num="1" X="-22" Y="9" />
+      <Point Num="2" X="-74" Y="-78" />
+    </arc>
+    <arc StartPoint="t2" EndPoint="p3" ArcWeight="1" TimeValue="" Comment="_">
+      <Point Num="1" X="3" Y="9" />
+      <Point Num="2" X="26" Y="-71" />
+    </arc>
+    <arc StartPoint="t1" EndPoint="p5" ArcWeight="1" TimeValue="" Comment="_">
+      <Point Num="1" X="-106" Y="20" />
+      <Point Num="2" X="-114" Y="90" />
+    </arc>
+    <arc StartPoint="t2" EndPoint="p6" ArcWeight="1" TimeValue="" Comment="_">
+      <Point Num="1" X="1" Y="29" />
+      <Point Num="2" X="14" Y="93" />
+    </arc>
+    <arc StartPoint="t3" EndPoint="p7" ArcWeight="1" TimeValue="" Comment="_">
+      <Point Num="1" X="97" Y="28" />
+      <Point Num="2" X="120" Y="95" />
+    </arc>
+    <arc StartPoint="p7" EndPoint="t2" ArcWeight="1" TimeValue="" Comment="_">
+      <Point Num="1" X="113" Y="100" />
+      <Point Num="2" X="8" Y="29" />
+    </arc>
+    <arc StartPoint="p5" EndPoint="t2" ArcWeight="1" TimeValue="" Comment="_">
+      <Point Num="1" X="-104" Y="95" />
+      <Point Num="2" X="-22" Y="29" />
+    </arc>
+  </SNS>
+</FBType>
+

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="F:\Vive_039\xmlSchema\NCESModuleNetworkExtended.xsd" X="0" Y="0" Num="0" LocNum="0" Name="New" Comment="_" Width="45.0" Height="58.0">
+  <VersionInfo Copyright="" FileVersion="1" EditorVersion="Visual NCES Editor 2.0.0" Author="" Date="2015-09-25" Description="" />
+  <InterfaceList />
+  <SNS LeftPageBorder="-300.0" RightPageBorder="300.0">
+    <place X="-108" Y="-111" Diameter="30.0" Name="p1" Num="1" LocNum="1" Mark="0" Clock="0" Capacity="1" Comment="_">
+      <CommentBox X="0" Y="0" Width="20" Height="20" />
+    </place>
+    <place X="-81" Y="41" Diameter="30.0" Name="p2" Num="2" LocNum="2" Mark="0" Clock="0" Capacity="1" Comment="_">
+      <CommentBox X="0" Y="0" Width="20" Height="20" />
+    </place>
+    <trans X="-75" Y="-21" Width="30" Height="20" Num="1" LocNum="1" Name="t1" Type="OR" TransInscription="_" SwitchMode="s" Comment="_">
+      <CommentBox X="0" Y="0" Width="20" Height="20" />
+    </trans>
+    <arc StartPoint="p1" EndPoint="t1" ArcWeight="1" TimeValue="" Comment="_">
+      <Point Num="1" X="-88" Y="-83" />
+      <Point Num="2" X="-70" Y="-21" />
+    </arc>
+    <arc StartPoint="t1" EndPoint="p2" ArcWeight="1" TimeValue="" Comment="_">
+      <Point Num="1" X="-62" Y="-1" />
+      <Point Num="2" X="-65" Y="42" />
+    </arc>
+  </SNS>
+</FBType>
+
