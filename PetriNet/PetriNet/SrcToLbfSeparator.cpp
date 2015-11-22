@@ -6,9 +6,20 @@
 
 #include "stdafx.h"
 
-Petri_Net *SrcToLbfSeparator::Separate(_In_ Petri_Net &SrcNet)
+Petri_Net * SrcToLbfSeparator::Separate(_In_ Petri_Net *srcNet, _In_ bool newMethod)
 {
-	return NULL;
+	//srcNet->Separate();
+	srcNet->GetMToLBF(newMethod);
+
+	Petri_Net *Clone = new Petri_Net();
+	Clone->GetClone(srcNet, false);
+
+	if (Clone->Separate())
+	{
+		return Clone;
+	}
+	else
+		return NULL;
 }
 
 SrcToLbfSeparator::SrcToLbfSeparator()

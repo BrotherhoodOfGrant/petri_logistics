@@ -1,18 +1,28 @@
 /**
 * @file Petri_Net.h
 * Объявление класса, соответствующего сети Петри
-* @author ... @date 01.11.2015
+* @author Voinov, Senokosov @date 09.11.2015
 */
+
+#include <string>
+#include <string.h>
+#include <vector>
+#include <map>
+#include <vector>
+#include <algorithm>
 
 class Petri_Net
 {
-
 public:
 	Petri_Net();
+	//параметры вес,имя началькой вершины, имяконечной вершины
 	bool AddArc(int Arkweight, string StartPoint, string EndPoint); //Добавляем дугу
+	//Добавляем дугу. В качестве параметров указываем вес дуги, начальный и конечный номер. При 
+	//OnePos = true то дуга идёт из позиции в переход, иначе наоборот
+	bool AddArc(int Arkweight, int StartPoint, int EndPoint, bool OnePos);  
 	bool AddPosition(int Marking, int Number, string Name = "-1"); //Добавляем позицию
 	bool AddTransition(int Number, string Name = "-1");    //Добавляем переход
-	void CleaningPetriNet();
+	void CleaningPetriNet();							//Очистка сети Петри
 	int GetElementMatrixD(int col, int row);      //Получение элемента выходной матрицы
 	int GetElementMatrixInput(int col, int row);     //Получение элемента входной матрицы
 	int GetElementMatrixOutput(int col, int row);     //Получение элемента выходной матрицы
@@ -42,82 +52,79 @@ public:
 	bool SetMarkingPositions(int number, int mark);     //Установить маркировку для позиции
 	bool SetNamePosition(int NumberPos, string NewName);   //Установить имя позиции
 	bool SetNameTransition(int NumberTrans, string NewName);  //Установить имя перехода
+	bool SetElementMatrixD(int col, int row, int weight);   //Получить элемент матрицы D
+	bool GetClone(Petri_Net *BeginNet, bool LevelUp); 
+	bool GetCloneMeta(Petri_Net *BeginNet, vector<int>matrixD, bool LevelUp);//Клонирование функции с внешними метаданными
+	bool DecompositionPos(int Number, int Number1);//Какую позицию и на сколько частей делим
+	bool DecompositionTra(int Number, int Number1);//Какой переход и на сколько частей делим
+	bool UnionPos(vector<int> number);//объединение позиций по номеру
+	bool UnionTra(vector<int> number);//объединение переходов по номеру
+	vector<string> GetNamePosition(int number, int level);// Восстанавливаем имя позиции на заданном уровне без учёта дуг. Возвращаем нулевой вектор в случае неудачи
+	vector<string> GetNameTransition(int number, int level);// Восстанавливаем имя позиции на заданном уровне без учёта дуг. Возвращаем нулевой вектор в случае неудачи
+	int GetLevelNet(); //Получить уровень текущей сети
+	bool UnionPosition(vector<int> number);//объединение позиций по номеру с сохранение всех позиций
+	bool UnionTransition(vector<int> number);//объединение переходов по номеру с сохранение всех переходов
+	bool Separate();	//Функция, нужная только Краснову Андрею
+	void GetMToLBF(bool newMethod);
 
 private:
+	vector<int> vec;
+	bool AddPosition(int Marking, int Number, vector<int>NumberParent, string Name = "-1"); //Добавляем позицию c сохранением её родословной
+	bool AddTransition(int Number, vector<int>NumberParent, string Name = "-1");//Добавляем переход c сохранением его родословной
 
-	// Количество переходов
+	struct Elementvector
+	{
+		int NumberName;
+		vector<int>NumberParent;
+		vector<string>NameParent;
+	}EL;
+	vector<Elementvector> MassNameOnLevelForPosition;
+	vector<Elementvector> MassNameOnLevelForTransition;
+	map <int, vector<Elementvector>> MappingForPosition;
+	map <int, vector<Elementvector>> MappingForTrans;
 	int MAXT;
-
-	// Количество позиций
 	int MAXP;
-
-	// Количество дуг
 	int Kolvo;
+	int NumberLevel;
 
-	// Имя позиции
 	struct NamePos
 	{
-		// Маркировка
 		int Marking;
-
-		// Имя позиции
 		string Name;
-
-		// Порядковый номер (?)
 		int Number;
 	}NP;
-
-	// Имя перехода
 	struct NameTrans
 	{
-		// Порядковый номер (?)
 		int Number;
-
-		// Имя перехода
 		string Name;
 	}NT;
-
-	// Имя дуги
 	struct NameArc
 	{
-		// Вес дуги
 		int Arkweight;
-
-		// Имя конечной вершины
 		string EndPoint;
-
-		// Имя начальной вершины
 		string StartPoint;
 	}NA;
-
-	// Массив имен позиций
 	vector<NamePos> NaPo;
 	vector<NamePos>::iterator iNaPo;
-
-	// Массив имен переходов
 	vector<NameTrans> NaTr;
 	vector<NameTrans>::iterator iNaTr;
-
-	// Массив имен дуг
 	vector<NameArc> NaAr;
 	vector<NameArc>::iterator iNaAr;
-
-	int *memory_Input;
+	int GetNumberPos(int Number);
+	int GetNumberTra(int Number);
+	double *memory_Input;
 	void Matrix_Input(int MAXP, int MAXT);
-	int get_value_Input(int col, int row);
-	void set_value_Input(int col, int row, int value);
-	int *memory_Output;
+	double get_value_Input(int col, int row);
+	void set_value_Input(int col, int row, double value);
+	double *memory_Output;
 	void Matrix_Output(int MAXP, int MAXT);
-	int get_value_Output(int col, int row);
-	void set_value_Output(int col, int row, int value);
-	int *memory_D;
+	double get_value_Output(int col, int row);
+	void set_value_Output(int col, int row, double value);
+	double *memory_D;
 	void Matrix_D(int MAXP, int MAXT);
-	int get_value_D(int col, int row);
-	void set_value_D(int col, int row, int value);
-	int* Get_Matrix_Input();
-	int* Get_Matrix_Output();
-	int* Get_Matrix_D();
-
-	// added by Lena:
-	bool NameUnable(string Name);
+	double get_value_D(int col, int row);
+	void set_value_D(int col, int row, double value);
+	double* Get_Matrix_Input();
+	double* Get_Matrix_Output();
+	double* Get_Matrix_D();
 };

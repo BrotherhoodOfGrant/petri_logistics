@@ -13,7 +13,7 @@ public:
 	* @param[in] srcNet - Исходная СП-структура
 	* @param[inout] altNets - Коллекция проверяемых СП-структур. СП-структуры, которые не прошли проверку, удаляются из коллекции.
 	*/
-	static void Check(_In_ Petri_Net &srcNet, _Inout_ vector<Petri_Net*> &altNets);
+	static void Check(_In_ Petri_Net &srcNet, _Inout_ AlternativeNest &altNets);
 private:
 	EquivalenceChecker();
 	~EquivalenceChecker();

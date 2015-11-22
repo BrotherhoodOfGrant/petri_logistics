@@ -2,7 +2,7 @@
 #include "EquivalenceChecker.h"
 
 
-void EquivalenceChecker::Check(Petri_Net &srcNet, vector<Petri_Net*> &altNets)
+void EquivalenceChecker::Check(_In_ Petri_Net &srcNet, _Inout_ AlternativeNest &altNets)
 {
 
 }

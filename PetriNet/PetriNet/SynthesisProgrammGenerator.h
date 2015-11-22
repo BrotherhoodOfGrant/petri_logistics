@@ -6,112 +6,41 @@
 
 #pragma once
 
-#include <queue>
-#include <map>
-#include <stack>
-
-// Структура, описывающая единичную задачу генерации программы синтеза
-struct SynthesisWorkItem{
-
-	SynthesisWorkItem(SynthesysVector ProgSynthesys, int nIndex, int nGroupIndex, int nMaxGroupIndex)
-		:m_ProgSynthesys(ProgSynthesys), m_nCurrentIndex(nIndex), m_nGroupIndex(nGroupIndex), m_nMaxGroupIndex(nMaxGroupIndex){}
-
-	// Индекс текущего элемента 
-	int m_nCurrentIndex;
-
-	// Текущий номер группы
-	int m_nGroupIndex;
-
-	// Максимально возможный номер группы
-	int m_nMaxGroupIndex;
-
-	SynthesysVector m_ProgSynthesys;
-};
-typedef SynthesisWorkItem * PSynthesisWorkItem;
-
-enum ENodeState{
-	NodeStateNotVisited,
-	NodeStateVisited,
-	NodeStateClosed
-};
-
-struct SythesysTreeNode{
-
-	SythesysTreeNode(int nElement, int nMaxValue)
-		: m_nNodeElement(nElement), m_nMaxValue(nMaxValue), nCurrentDependentNode(0), m_NodeState(NodeStateNotVisited){}
-
-	SythesysTreeNode()
-		: m_nNodeElement(1), m_nMaxValue(1), nCurrentDependentNode(0), m_NodeState(NodeStateNotVisited){}
-
-	// Текущий элемент программы синтеза
-	int m_nNodeElement;
-
-	int m_nMaxValue;
-
-	int nCurrentDependentNode;
-
-	// массив подчиненных элементов
-	vector<SythesysTreeNode *> m_NextNodes;
-
-	ENodeState m_NodeState;
-};
-typedef SythesysTreeNode * PSythesysTreeNode;
-
 class SynthesisProgrammGenerator
 {
 public:
 	SynthesisProgrammGenerator();
 	~SynthesisProgrammGenerator();
-
-	/**
-	* Инициализация генератора
-	* @param[in] nVectorSize - Размер вектора
-	*/
-	SynthesisProgrammGenerator(int nVectorSize);
+		
 
 	/**
 	* Инициализация генератора
 	* @param[in] nVectorSize - Размер вектора
 	* @param[in] Restrictions - Вектор ограничений
 	*/
-	SynthesisProgrammGenerator(LbfVector Restrictions);
+	SynthesisProgrammGenerator(RestrictionsfVector &Restrictions);
+		
 
 	/**
-	* Получить следующую программу синтеза
+	* Получить следующую программу синтеза из счетчика
 	* @param[in] SynthesisProgramm - Вектор, который будет заполнен
 	*/
-	bool GetNextSynthesisProgramm(SynthesysVector &SynthesisProgramm);
+	bool GetNextCounterSynthesisProgramm(SynthesysVector &SynthesisProgramm);
 
-	bool GetNextTreeSynthesisProgramm(SynthesysVector &SynthesisProgramm);
-
+	/**
+	* Сбросить генератор в исходное состояние
+	*/
 	void Reset();
-
-	/**
-	* Проверить допустимость ветки дерева
-	*/
-	bool BranchEnable(PSythesysTreeNode pCurrentNode, PSythesysTreeNode pChildNode, int nCurrentDepth, LbfVector Restrictions);
-
-
-	// Для отладки: самый рекурсивный вариеат
-	void PrintSeq(SynthesysVector &ProgSynthesis, int nIndex);
-
-private:
-	/**
-	* Сформировать программу синтеза
-	* @param[in] ProgSynthesys - Текущая программа синтеза
-	* @param[in] nIndex - Индекс текущего элемента программы синтеза
-	* @remarks Функция рекурсивна
-	*/
-	bool GenerateSynthesisProgramm();
-
-	bool GenerateTreeSynthesisProgramm();
-
+	
 	/**
 	* Найти максимальный элемент вектора
 	* @param[in] ProgSynthesys - Анализируемый вектор
+	* @param[in] nMaxIndex - Максимальный учитываемый номер элемента (0 - вектор целиком)
 	*/
-	int MaxVectorElement(SynthesysVector &ProgSynthesys);
+	static int MaxVectorElement(SynthesysVector &ProgSynthesys, UINT nMaxIndex = 0);
 
+private:
+	
 	/**
 	* Имеются ли на данному отрезке вектора повторяющиеся элементы
 	* @param[in] Vector - Анализируемый вектор
@@ -125,38 +54,40 @@ private:
 	* @param[in] ProgSynthesys - Анализируемый вектор
 	*/
 	bool IsEnable(SynthesysVector &ProgSynthesys);
+		
 
-	void BuildTree(PSythesysTreeNode pCurrentNode, int nDepth, int nMaxGroupsCount);
-
-	void ResetTree();
+	/**
+	* сгенерировать программу синтеза при помощи вектора
+	* @return true - вектор получен
+	* @remarks Не рекомендуется к прочтению людам, страдающим от 
+	* тяжелых психических заболеваний или чайной зависимости
+	*/
+	bool GenerateSynthsisProgrammCounter();
 
 	//////////////////////////////////////////////////////////////////////////
 
 	// Вектор ограничений
-	LbfVector RestrictionsVector;
+	RestrictionsfVector m_RestrictionsVector;
 
 	int m_nElementsCount;
+			
 
-	// Количество допустимых программ синтеза
-	int nEnable;
+	//////////////////////////////////////////////////////////////////////////
+	// Реализация счетчиком
 
-	// Общее количество программ синтеза
-	int nCount;
+	// Вектор максимальных значений разрядов
+	SynthesysVector m_MaxValues;
 
-	// Текущая программа синтеза
-	SynthesysVector m_ProgSynthesys;
+	// Текущее значение счетчика
+	SynthesysVector m_FlexibleCounter;
 
-	// Очередь заданий
-	queue<PSynthesisWorkItem> m_WorkingQueue;
+	// Флаг переноса
+	bool m_fCarry;
 
-	SythesysTreeNode m_TreeHead;
+	// Индекс младшего разряда, в котором был перенос
+	UINT m_nCarryIndex = 0;
 
-	vector<SynthesysVector> m_SynthProgVector;	
-
-	//map< PSythesysTreeNode, ENodeState> m_TreeState;
-
-	stack<PSythesysTreeNode> TreeNodesStack;
-
-	int nDepth;
+	// флаг переполнения
+	bool m_fOverflow = false;
 };
 

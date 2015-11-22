@@ -13,10 +13,15 @@ public:
 	* @param[inout] altNets - Коллекция преобразуемых СП-структур
 	* @param[in] tensor - Тензор преобразования
 	*/
-	static void Transform(_Inout_ vector<Petri_Net*> &altNets, _In_ Matrix &tensor);
+	static bool Transform(_Inout_ AlternativeNest &altNets, _In_ Matrix &tensor);
+	static bool Reduce(_Inout_ Petri_Net * pAltNet);
 
 private:
 	InverseTransformer();
 	~InverseTransformer();
+
+	static bool Convert(_Inout_ Petri_Net * pAltNet, _In_ Matrix &tensor);
+	
+
 };
 

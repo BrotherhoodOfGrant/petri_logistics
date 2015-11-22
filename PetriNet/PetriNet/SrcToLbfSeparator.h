@@ -15,7 +15,7 @@ public:
 	* @param[in] srcNet - Исходная СП-структура
 	* @result - СП-структура, представляющая ЛБФ
 	*/
-	static Petri_Net *Separate(_In_ Petri_Net &srcNet);
+	static Petri_Net *Separate(_In_ Petri_Net *srcNet, _In_ bool newMethod);
 
 private:
 	SrcToLbfSeparator();

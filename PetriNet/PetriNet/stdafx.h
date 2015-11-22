@@ -9,11 +9,17 @@
 
 #include <stdio.h>
 #include <tchar.h>
+#include <conio.h>
 
 #include <string>
 #include <string.h>
 #include <vector>
 #include "Windows.h"
+#include <map>
+#include <algorithm>
+#include <list>
+
+
 using namespace std;
 
 #ifndef UNICODE  
@@ -24,7 +30,12 @@ typedef std::wstring String;
 typedef std::wostringstream Ostringstream;
 #endif
 
+
+
 #include "Petri_Net.h"
+
+typedef list<Petri_Net*> AlternativeNest;
+
 #include "AltStructsSynthesizer.h"
 #include "Matrix.h"
 #include "InverseTransformer.h"
@@ -32,3 +43,5 @@ typedef std::wostringstream Ostringstream;
 #include "SrcToLbfSeparator.h"
 #include "PetriNetSerializer.h"
 #include "EquivalenceChecker.h"
+#include "PointsCreator.h"
+
